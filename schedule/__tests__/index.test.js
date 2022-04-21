@@ -93,7 +93,7 @@ describe('getCurrentPair works', () => {
     expect(() => {
       getCurrentPair(db.groups[0], currentDay, currentTime, db)
     }).toThrowError(
-      new ScheduleError('На цей день не заплановано жодної пари для ' + db.groups[0].name),
+      new ScheduleError('На цей день не заплановано жодної пари для ' + db.groups[0].name)
     )
   })
 

@@ -52,7 +52,7 @@ export const getNearestPair = (group, currentDay, currentTime, db) => {
 
   if (schedule.days[dayIndex]) {
     const pairs = schedule.days[dayIndex].map((pairId) =>
-      db.pairs.find((pair) => pair.id === pairId),
+      db.pairs.find((pair) => pair.id === pairId)
     )
 
     const pair = pairs.find(({ time }) => checkIfCurrentTimeInSomePeriod(currentTime, time))
