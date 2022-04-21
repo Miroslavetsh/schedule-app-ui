@@ -5,7 +5,7 @@ import { ScheduleError, getCurrentPair, getNearestPair } from './schedule/index.
 
 const main = () => {
   const _TOKEN_ = 'djsaFnGDLk727uiogu3i710gDDA9GhdLIk'
-  
+
   const currentDay = new Date().getDay() - 1
   const currentTime = `${new Date().getHours()}:${new Date().getMinutes()}`
 
@@ -20,7 +20,7 @@ const main = () => {
   } catch (err) {
     if (err.name === 'ScheduleError') view.currentPair = err.message
   }
-  
+
   // найдём следующую ближайшую пару (можно построить односвязный список из графика и пройтись)
   view.nearestPair = { ...getNearestPair(group, currentDay, currentTime, db) }
 

@@ -1,20 +1,21 @@
 {
-  "name": "codewars",
+  "name": "schedule-app-ui",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node main.mjs",
-    "test": "jest --config=jest.config.js --watch"
+    "test": "jest --config=jest.config.js --watch",
+    "lint": "prettier --write ."
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/eslint-parser": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
     "jest": "^27.5.1",
-    "request": "^2.88.2"
-  },
-  "dependencies": {
-    "xml2js": "^0.4.23"
+    "prettier": "^2.6.2"
   }
 }
