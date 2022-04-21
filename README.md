@@ -14,9 +14,9 @@ This is a service of two sides of an big application that will help You to make 
 
 - Firstly, create a new branch from current version of master
 - Then, you will be able to apply your changes and cover them with tests
-- Next step - You must be sure that you see the correct current and next pair dates with the appropriate informationm check it out the `yarn start`
-- After that - run the tests and check it out that none from your changes didn't break previous
-- yarn lint - repair each space, comma, linebrake etc.
+- At the next step You must be sure that you see the correct current and next pair dates with the appropriate informationm check it out the `yarn start`
+- After that run the tests and check it out that none from your changes didn't break previous
+- In the conclusion, please, run `yarn lint` that repairs each space, comma, linebrake etc.
 
 OK, so You decided to help us with it, let's take note that we have some rules to keep the production build purity and cleanliness🙌
 
