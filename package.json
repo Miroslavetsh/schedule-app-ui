@@ -1,0 +1,20 @@
+{
+  "name": "codewars",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node main.mjs",
+    "test": "jest --config=jest.config.js --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "jest": "^27.5.1",
+    "request": "^2.88.2"
+  },
+  "dependencies": {
+    "xml2js": "^0.4.23"
+  }
+}
