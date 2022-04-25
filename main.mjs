@@ -6,20 +6,19 @@ import { ScheduleError, getCurrentPair, getNearestPair } from './schedule/index.
 const main = () => {
   const _TOKEN_ = 'djsaFnGDLk727uiogu3i710gDDA9GhdLIk'
 
-  // TODO: Перенести это в тесты функции getNearestPair
-  // они пока закомментированы путь: schedule/__tests__index.test.js
+  // TODO: Перенести это в интеграционные тесты
 
   const currentDay = new Date().getDay() - 1
   const currentTime = `${new Date().getHours()}:${new Date().getMinutes()}`
 
-  // Утро понедельника (до пар)
+  // Утро понедельника (до пар) +
 
   // const currentDay = 0
   // const currentTime = '08:00'
   // current pair - Зараз пара не йде
   // nearest pair - Первая пара понедельника
 
-  // Утро понедельника (во время первой пары)+
+  // Утро понедельника (во время первой пары) +
 
   // const currentDay = 0
   // const currentTime = '09:00'
@@ -71,13 +70,16 @@ const main = () => {
 
   // найдём текущую пару
   try {
-    view.currentPair = { ...getCurrentPair(group, currentDay, currentTime, db) }
+    view.currentPair = { ...getCurrentPair(group, currentDay, currentTime) }
   } catch (err) {
     if (err.name === 'ScheduleError') view.currentPair = err.message
+    else {
+      console.warn(err)
+    }
   }
 
   // найдём следующую ближайшую пару (можно построить односвязный список из графика и пройтись)
-  view.nearestPair = { ...getNearestPair(group, currentDay, currentTime, db) }
+  view.nearestPair = { ...getNearestPair(group, currentDay, currentTime) }
 
   return view
 }
