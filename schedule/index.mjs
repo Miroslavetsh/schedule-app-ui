@@ -20,7 +20,7 @@ export const getCurrentPair = (group, currentDay, currentTime, db) => {
       .map((pairId) => db.pairs.find(({ id }) => pairId === id)) // Каждый айдишник пары сопоставляем с самой парой из БД
       .find((pair) => checkIfCurrentTimeInSomePeriod(currentTime, pair.time)) || {} // Находим наконец пару и забираем её в переменную subjectId
 
-  if (typeof subjectId === 'undefined') throw new ScheduleError('На сьогодні пари скінчилися')
+  if (typeof subjectId === 'undefined') throw new ScheduleError('Зараз пара не йде')
 
   const subject = db.subjects.find((subj) => subj.id === subjectId)
 
@@ -45,40 +45,98 @@ const getPairInfoByPairId = (pairId, db) => {
   return { name, place, teacherName }
 }
 
+const findNextDayFirstPairId = (dayIndex, schedule) => {
+  dayIndex = (dayIndex + 1) % schedule.days.length
+
+  while (typeof schedule.days[dayIndex][0] === 'undefined') {
+    dayIndex = (dayIndex + 1) % schedule.days.length
+  }
+
+  return schedule.days[dayIndex][0]
+}
+
 export const getNearestPair = (group, currentDay, currentTime, db) => {
   const schedule = db.schedules.find((schedule) => schedule.groupId === group.id)
+  const currentTimeInSeconds = timePeriodToSeconds(currentTime)
 
   let dayIndex = currentDay
+  const pairIdsToday = schedule.days[dayIndex]
 
-  if (schedule.days[dayIndex]) {
-    const pairs = schedule.days[dayIndex].map((pairId) =>
-      db.pairs.find((pair) => pair.id === pairId)
-    )
+  if (typeof pairIdsToday !== 'undefined') {
+    const pairsToday = pairIdsToday.map((id) => db.pairs.find((pair) => pair.id === id))
 
-    const pair = pairs.find(({ time }) => checkIfCurrentTimeInSomePeriod(currentTime, time))
+    const firstPair = pairsToday[0]
+    const lastPair = pairsToday[pairsToday.length - 1]
 
-    //Нужно проверить если время до того, как начнется пара и если время после того, как закончится пара
-    if (pair === undefined) {
-      let pairId = schedule.days[dayIndex][0]
+    const currentTimeSeconds = timePeriodToSeconds(currentTime)
+    const firstPairBeginSeconds = timePeriodToSeconds(firstPair.time.split('-')[0])
+    const lastPairBeginSeconds = timePeriodToSeconds(lastPair.time.split('-')[0])
 
-      const [timeOfFirstPair] = db.pairs.find(({ id }) => id === pairId).time.split('-')
+    console.log(firstPair)
+    console.log(lastPair)
 
-      if (timePeriodToSeconds(currentTime) > timePeriodToSeconds(timeOfFirstPair)) {
-        dayIndex = (dayIndex + 1) % schedule.days.length
-
-        while (typeof schedule.days[dayIndex][0] === 'undefined') {
-          dayIndex = (dayIndex + 1) % schedule.days.length
-        }
-
-        pairId = schedule.days[dayIndex][0]
-      }
-
-      return getPairInfoByPairId(pairId, db)
+    // we are before pairs(currentTime < ) - return first pair of today
+    if (currentTimeSeconds < firstPairBeginSeconds) {
+      return getPairInfoByPairId(firstPair.id, db)
     }
+    // we are after pairs - return first pair of nextDay
+    else if (currentTimeSeconds >= lastPairBeginSeconds) {
+      return getPairInfoByPairId(findNextDayFirstPairId(dayIndex, schedule), db)
+    }
+    // we are in time with pairs return pair after that
+    else {
+      const pair = pairsToday.find(({ time }) => checkIfCurrentTimeInSomePeriod(currentTime, time))
 
-    const presentDay = schedule.days[dayIndex]
-    const nextPairId = presentDay[presentDay.indexOf(pair.id) + 1]
-
-    return getPairInfoByPairId(nextPairId, db)
+      console.log(pair)
+      // If we have a pair - return next pair
+      if (typeof pair !== 'undefined') {
+        return getPairInfoByPairId(pairIdsToday[pairIdsToday.indexOf(pair.id) + 1], db)
+      }
+      // Если время в переыве -  return firstPair, start time of that more than our time
+      else {
+        return getPairInfoByPairId(
+          pairsToday.find(({ time }) => currentTimeInSeconds < time.split('-')[0]),
+          db
+        )
+      }
+    }
+  } else {
+    return getPairInfoByPairId(findNextDayFirstPairId(dayIndex, schedule), db)
   }
+
+  // const pairs = schedule.days[dayIndex].map((pairId) => db.pairs.find((pair) => pair.id === pairId))
+
+  // const currentPair = pairs.find(({ time }) => checkIfCurrentTimeInSomePeriod(currentTime, time))
+  // const lastPair = pairs[pairs.length - 1]
+
+  // const weAreInTimeBeforeTheLastPair = lastPair
+  //   ? timePeriodToSeconds(lastPair.time.split('-')[1]) > currentTimeInSeconds
+  //   : false
+
+  // //Нужно проверить если время до того, как начнется пара и если время после того, как закончится пара
+  // if (typeof currentPair === 'undefined' && weAreInTimeBeforeTheLastPair) {
+  //   let pairId = schedule.days[dayIndex][0]
+
+  //   const [timeOfFirstPair] = db.pairs.find(({ id }) => id === pairId).time.split('-')
+
+  //   if (currentTimeInSeconds > timePeriodToSeconds(timeOfFirstPair)) {
+
+  //     pairId = schedule.days[dayIndex][0]
+  //   }
+  //   return getPairInfoByPairId(pairId, db)
+  // }
+
+  // const presentDay = schedule.days[dayIndex]
+  // let nextPairId = presentDay[presentDay.indexOf(pair.id) + 1]
+
+  // if (presentDay.indexOf(pair.id) + 1 === presentDay.length) {
+  //   const nextDayIndex = dayIndex + 1
+  //   const nextDay = schedule.days[nextDayIndex]
+
+  //   nextPairId = nextDay[0]
+
+  //   return getPairInfoByPairId(nextPairId, db)
+  // }
+
+  // return getPairInfoByPairId(nextPairId, db)
 }
