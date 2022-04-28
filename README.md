@@ -19,8 +19,9 @@ This is a service of two sides of an big application that will help You to make 
 
 - Firstly, create a new branch from current version of master
 - Then, you will be able to apply your changes and cover them with tests
-- At the next step You must be sure that you see the correct current and next pair dates with the appropriate information check it out the `npm run start`
-- After that run the tests and check it out that none from your changes didn't break previous
+- At the next step You must be sure that you see the correct current and next pair dates with the appropriate information. Just run `npm run dev:server` and check it out after token entering
+- After that run the tests using `npm run test` and check it out that none from your changes didn't break previous and new cases are working
+- Then, please, run `npm run build` and make sure that project is assembled without errors
 - In the conclusion, please, run `npm run lint:fix` that repairs each space, comma, linebreak etc.
 
 OK, so You decided to help us with it, let's take note that we have some rules to keep the production build purity and cleanliness🙌

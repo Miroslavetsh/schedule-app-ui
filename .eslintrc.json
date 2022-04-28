@@ -9,7 +9,7 @@
     "sourceType": "module"
   },
   "parser": "@babel/eslint-parser",
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended", "next"],
   "rules": {
     "no-undef": "off"
   }
