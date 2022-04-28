@@ -7,7 +7,7 @@
     "dev": "next",
     "dev:server": "node server.mjs",
     "build": "next build",
-    "serve": "cross-env NODE_ENV=production node server.mjs",
+    "serve": "yarn build && cross-env NODE_ENV=production node server.mjs",
     "test": "jest --config=jest.config.js --watch",
     "lint:fix": "prettier --write ."
   },
