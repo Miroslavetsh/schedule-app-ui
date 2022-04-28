@@ -2,7 +2,7 @@ import db from './schedule/db.mjs'
 import { ScheduleError, getCurrentPair, getNearestPair } from './schedule/index.mjs'
 import padTimeWithZeros from './utils/padTimeWithZeros/index.mjs'
 
-const main = (_TOKEN_ = 'djsaFnGDLk727uiogu3i710gDDA9GhdLIk') => {
+const main = (_TOKEN_) => {
   const currentDay = new Date().getDay() - 1
   const currentTime = `${new Date().getHours()}:${new Date().getMinutes()}`
 
@@ -25,7 +25,5 @@ const main = (_TOKEN_ = 'djsaFnGDLk727uiogu3i710gDDA9GhdLIk') => {
 
   return view
 }
-
-console.log(main())
 
 export default main
