@@ -7,9 +7,12 @@ This is a service of two sides of an big application that will help You to make 
 - Firstly, install NodeJS v16.13.1 or above (I'm not sure that everything will work on older version)
 - (optional) Secondly, use it manually by running `nvm use` in Your terminal, or npm will determine dependency of Node version after running `npm install`
 - Then You you will have at your disposal next commands:
-  - `npm run start` - run the script, that shows You current pair and nearest next pair
+  - `npm run dev` - run the script, that shows You current pair and nearest next pair
+  - `npm run dev:server` - Runs the server, that allows you to interact with schedule and client
+  - `npm run build` - builds client side for using it on a prod
+  - `npm run serve` - run the production build of Node.js and Next.js parts
   - `npm run test` - this command that shows You current pair and allows you to make sure that every your change
-  - `npm run lint` - this one will fix trailing commas, semicolons and spaces after applying your changes
+  - `npm run lint:fix` - this one will fix trailing commas, semicolons and spaces after applying your changes
 
 ### Contributing RoadMap🗺️
 
@@ -17,7 +20,7 @@ This is a service of two sides of an big application that will help You to make 
 - Then, you will be able to apply your changes and cover them with tests
 - At the next step You must be sure that you see the correct current and next pair dates with the appropriate information check it out the `npm run start`
 - After that run the tests and check it out that none from your changes didn't break previous
-- In the conclusion, please, run `npm run lint` that repairs each space, comma, linebreak etc.
+- In the conclusion, please, run `npm run lint:fix` that repairs each space, comma, linebreak etc.
 
 OK, so You decided to help us with it, let's take note that we have some rules to keep the production build purity and cleanliness🙌
 
