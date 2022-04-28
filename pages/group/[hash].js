@@ -1,14 +1,35 @@
 import { useRouter } from 'next/router'
+import { useContext, useEffect, useState } from 'react'
+
+import AppContext from '../../context/AppContext'
 
 const Group = () => {
   const router = useRouter()
-  const { hash } = router.query
+  const { pairs } = useContext(AppContext)
 
-  return <>Here is info about group {hash}</>
-}
+  useEffect(() => {
+    !pairs.groupName && router.push('/')
+  }, [])
 
-export const getServerSideProps = async () => {
-  return { props: {} }
+  return (
+    <>
+      {pairs.groupName && (
+        <div>
+          Даю інфо за групою {pairs.groupName}
+          <pre>{JSON.stringify(pairs, null, 2)}</pre>
+        </div>
+      )}
+
+      <button
+        onClick={() => {
+          sessionStorage.removeItem('__token')
+          router.push('/')
+        }}
+      >
+        Ввести інший токен
+      </button>
+    </>
+  )
 }
 
 export default Group

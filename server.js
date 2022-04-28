@@ -14,15 +14,16 @@ app.prepare().then(() => {
   server.use(express.json())
 
   server.post('/authorize', (req, res) => {
+    const { token } = req.body
+    let view
+
     try {
-      const { token } = req.body
-
-      const view = main(token)
-
-      res.send(view)
+      view = main(token)
     } catch (e) {
-      console.log(e)
+      res.send(e.message)
     }
+
+    res.send(view)
   })
 
   server.get('*', (req, res) => {
@@ -31,6 +32,6 @@ app.prepare().then(() => {
 
   server.listen(port, (err) => {
     if (err) throw err
-    console.log(`Ready on http://localhost:${port}`)
+    console.log(`Ready on Port: ${port}`)
   })
 })

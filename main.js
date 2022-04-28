@@ -10,8 +10,7 @@ const main = (_TOKEN_) => {
   if (typeof group === 'undefined') throw new ScheduleError('За заданим токеном групи не знайдено')
 
   const view = {
-    currentDay: db.days[currentDay].name,
-    currentTime: padTimeWithZeros(currentTime),
+    groupName: group.name,
   }
 
   try {
