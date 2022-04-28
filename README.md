@@ -8,9 +8,10 @@ This is a service of two sides of an big application that will help You to make 
 - (optional) Secondly, use it manually by running `nvm use` in Your terminal, or npm will determine dependency of Node version after running `npm install`
 - Then You you will have at your disposal next commands:
   - `npm run dev` - run the script, that shows You current pair and nearest next pair
-  - `npm run dev:server` - Runs the server, that allows you to interact with schedule and client
+  - `npm run dev:server` - runs the server, that allows you to interact with schedule and client
   - `npm run build` - builds client side for using it on a prod
-  - `npm run serve` - run the production build of Node.js and Next.js parts
+  - `npm run serve` - runs the production build of Node.js and Next.js parts
+  - `npm run start` - Versel's essentials
   - `npm run test` - this command that shows You current pair and allows you to make sure that every your change
   - `npm run lint:fix` - this one will fix trailing commas, semicolons and spaces after applying your changes
 
