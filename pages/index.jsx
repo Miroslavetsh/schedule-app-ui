@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 
-import AppContext from '../context/AppContext'
+import AppContext from '@context/AppContext'
 
 const Home = () => {
   const router = useRouter()

@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import AppContext from '../context/AppContext'
+
+import AppContext from '@context/AppContext'
 
 const MyApp = ({ Component, pageProps }) => {
   const [pairs, setPairs] = useState({})

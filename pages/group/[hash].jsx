@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
 
-import AppContext from '../../context/AppContext'
+import AppContext from '@context/AppContext'
 
 const Group = () => {
   const router = useRouter()
