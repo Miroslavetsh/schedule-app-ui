@@ -1,5 +1,5 @@
-import db from '../db.mjs'
-import { getCurrentPair, getNearestPair, ScheduleError } from '../index.mjs'
+import db from '../db.js'
+import { getCurrentPair, getNearestPair, ScheduleError } from '../index.js'
 
 const testGroup = db.groups[0]
 

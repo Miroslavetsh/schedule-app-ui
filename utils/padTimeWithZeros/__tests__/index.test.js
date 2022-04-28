@@ -1,4 +1,4 @@
-import padTimeWithZeros from '../index.mjs'
+import padTimeWithZeros from '../index.js'
 
 describe('Util padTimeWithZeros works', () => {
   it('Pads a non-full time', () => {

@@ -1,4 +1,4 @@
-import checkIfCurrentTimeInSomePeriod from '../index.mjs'
+import checkIfCurrentTimeInSomePeriod from '../index.js'
 
 describe('checkIfCurrentTimeInSomePeriod function works', () => {
   it('Returns TRUE if time is between start and end of period', () => {

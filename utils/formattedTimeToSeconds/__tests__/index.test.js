@@ -1,4 +1,4 @@
-import formattedTimeToSeconds from '../index.mjs'
+import formattedTimeToSeconds from '../index.js'
 
 describe('formattedTimeToSeconds works', () => {
   it('Passes a simple time equality', () => {

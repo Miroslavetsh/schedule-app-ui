@@ -1,6 +1,6 @@
-import checkIfCurrentTimeInSomePeriod from '../utils/checkIfCurrentTimeInSomePeriod/index.mjs'
-import formattedTimeToSeconds from '../utils/formattedTimeToSeconds/index.mjs'
-import db from '../schedule/db.mjs'
+import checkIfCurrentTimeInSomePeriod from '../utils/checkIfCurrentTimeinSomePeriod/index.js'
+import formattedTimeToSeconds from '../utils/formattedTimeToSeconds/index.js'
+import db from '../schedule/db.js'
 
 export class ScheduleError extends Error {
   constructor(...params) {

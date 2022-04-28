@@ -1,4 +1,4 @@
-import main from '../../main.mjs'
+import main from '../../main.js'
 
 describe('App works correctly', () => {
   it('View shows us current day', () => {

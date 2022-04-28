@@ -1,4 +1,4 @@
-import formattedTimeToSeconds from '../formattedTimeToSeconds/index.mjs'
+import formattedTimeToSeconds from '../formattedTimeToSeconds/index.js'
 
 export default (currentTime, period) => {
   const [start, end] = period.split(' - ')
