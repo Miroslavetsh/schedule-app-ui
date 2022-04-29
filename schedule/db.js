@@ -1,4 +1,4 @@
-export default {
+const db = {
   /**
    * @property {subject}
    *           @param {id} - PK
@@ -207,3 +207,165 @@ export default {
     { id: 7, name: 'Неділя' },
   ],
 }
+
+const prodDB = {
+  subjects: [
+    {
+      id: 'upr-pers',
+      name: 'Управління Персоналом',
+      place: 'https://us04web.zoom.us/j/2335875798?pwd=em9YVkdHamkyd0pkVEd1SjNSbnArZz09',
+      teacherId: 'zzn',
+    },
+    {
+      id: 'ruh-obj',
+      name: "Зв'язок з Рухомими Об'єктами",
+      place: 'https://us04web.zoom.us/j/72051470217?pwd=cFMxK1h4WnRLSUVUL1NkUzJublFjUT09',
+      teacherId: 'ddc',
+    },
+    {
+      id: 'baz-dan',
+      name: 'Бази Даних',
+      place: 'https://us02web.zoom.us/j/86480138473?pwd=dTFLMHBQWWZEK0RmWVVlQlNoSVVvZz09',
+      teacherId: 'crv',
+    },
+    {
+      id: 'obj-prg-lect',
+      name: "Лекція з Об'єктно Орієнтованого Програмування",
+      place: 'https://us02web.zoom.us/j/86480138473?pwd=dTFLMHBQWWZEK0RmWVVlQlNoSVVvZz09',
+      teacherId: 'hrs',
+    },
+    {
+      id: 'obj-prg-pract',
+      name: "Практика з Об'єктно Орієнтованого Програмування",
+      place: 'https://us02web.zoom.us/j/86480138473?pwd=dTFLMHBQWWZEK0RmWVVlQlNoSVVvZz09',
+      teacherId: 'hrs',
+    },
+    {
+      id: 'hmr-tec',
+      name: 'Хмарні Технології',
+      place: 'https://us04web.zoom.us/j/9894978759?pwd=Sm9pQ3ZWaVA3WWtaYXh0MFlqc1lmdz09',
+      teacherId: 'mch',
+    },
+  ],
+  teachers: [
+    { id: 'zzn', name: 'Зюзюн ?.?.' },
+    { id: 'ddc', name: 'Дудник ?.?.' },
+    { id: 'mch', name: 'Махович ?.?.' },
+    { id: 'crv', name: 'Кравченко Юрій Васильович' },
+    { id: 'hrs', name: 'Герасименко Оксана Юріївна' },
+  ],
+  groups: [
+    { id: 'djsaFnGDLk727uiogu3i710gDDA9GhdLIk', name: 'МІТ-31 (1 підгрупа)' },
+    { id: 'reaopiHHSKbjhs876jIiy7ijggi1dKiOSd', name: 'МІТ-31 (2 підгрупа)' },
+  ],
+  schedules: [
+    {
+      groupId: 'djsaFnGDLk727uiogu3i710gDDA9GhdLIk',
+      days: [
+        [],
+        ['vt-1', 'vt-2', 'vt-3', 'vt-4'],
+        ['sr-1', 'sr-2', 'sr-3', 'sr-4'],
+        ['ct-1', 'ct-2', 'ct-3', 'ct-4'],
+        ['pt-1', 'pt-2', 'pt-3'],
+      ],
+    },
+    {
+      groupId: 'reaopiHHSKbjhs876jIiy7ijggi1dKiOSd',
+      days: [
+        [],
+        ['vt-1', 'vt-2', 'vt-3', 'vt-4'],
+        ['sr-1', 'sr-2', 'sr-3', 'sr-4'],
+        ['ct-1', 'ct-2', 'ct-4', 'ct-3'],
+        ['pt-1', 'pt-2', 'pt-3'],
+      ],
+    },
+  ],
+  pairs: [
+    {
+      id: 'vt-1',
+      subjectId: 'upr-pers',
+      time: '09:00 - 10:20',
+    },
+    {
+      id: 'vt-2',
+      subjectId: 'upr-pers',
+      time: '10:30 - 11:50',
+    },
+    {
+      id: 'vt-3',
+      subjectId: 'ruh-obj',
+      time: '12:10 - 13:30',
+    },
+    {
+      id: 'vt-4',
+      subjectId: 'hmr-tec',
+      time: '13:40 - 15:00',
+    },
+    {
+      id: 'sr-1',
+      subjectId: 'baz-dan',
+      time: '12:10 - 13:30',
+    },
+    {
+      id: 'sr-2',
+      subjectId: 'baz-dan',
+      time: '13:40 - 15:00',
+    },
+    {
+      id: 'sr-3',
+      subjectId: 'obj-prg-lect',
+      time: '15:00 - 16:30',
+    },
+    {
+      id: 'sr-4',
+      subjectId: 'obj-prg-pract',
+      time: '16:40 - 18:00',
+    },
+    {
+      id: 'ct-1',
+      subjectId: 'hmr-tec',
+      time: '09:00 - 10:20',
+    },
+    {
+      id: 'ct-2',
+      subjectId: 'ruh-obj',
+      time: '10:30 - 11:50',
+    },
+    {
+      id: 'ct-3',
+      subjectId: 'obj-prg-pract',
+      time: '12:10 - 13:30',
+    },
+    {
+      id: 'ct-4',
+      subjectId: 'hrm-tech',
+      time: '13:40 - 15:00',
+    },
+    {
+      id: 'pt-1',
+      subjectId: 'obj-prog-pract',
+      time: '10:30 - 11:50',
+    },
+    {
+      id: 'pt-2',
+      subjectId: 'obj-prog-pract',
+      time: '12:00 - 13:30',
+    },
+    {
+      id: 'pt-3',
+      subjectId: 'obj-prog-pract',
+      time: '13:40 - 15:00',
+    },
+  ],
+  days: [
+    { id: 1, name: 'Понеділок' },
+    { id: 2, name: 'Вівторок' },
+    { id: 3, name: 'Середа' },
+    { id: 4, name: 'Четвер' },
+    { id: 5, name: "П'ятниця" },
+    { id: 6, name: 'Субота' },
+    { id: 7, name: 'Неділя' },
+  ],
+}
+
+export default process.env.NODE_ENV !== 'production' ? db : prodDB
