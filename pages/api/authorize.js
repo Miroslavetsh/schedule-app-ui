@@ -1,37 +1,16 @@
 import main from 'main'
 
-const allowCors = (fn) => async (req, res) => {
-  res.setHeader('Access-Control-Allow-Credentials', true)
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  // another common pattern
-  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  )
-
-  if (req.method === 'OPTIONS') {
-    res.status(200).end()
-    return
-  }
-
-  return await fn(req, res)
-}
-
-const handler = (req, res) => {
-  if (req.method === 'POST') {
-    const { token } = req.body
+export default (req, res) => {
+  if (req.method === 'GET') {
+    const { token } = req.query
     let view
 
     try {
       view = main(token)
     } catch (e) {
-      res.send(e.message)
+      return res.status(200).json(e.message)
     }
 
-    res.send(view)
+    return res.status(200).json(view)
   }
 }
-
-export default allowCors(handler)
