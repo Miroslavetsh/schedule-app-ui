@@ -1,6 +1,5 @@
 import db from './schedule/db.js'
 import { ScheduleError, getCurrentPair, getNearestPair } from './schedule/index.js'
-import padTimeWithZeros from './utils/padTimeWithZeros/index.js'
 
 const main = (_TOKEN_) => {
   const currentDay = new Date().getDay() - 1

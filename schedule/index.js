@@ -1,4 +1,4 @@
-import checkIfCurrentTimeInSomePeriod from '../utils/checkIfCurrentTimeinSomePeriod/index.js'
+import checkIfCurrentTimeInSomePeriod from '../utils/checkIfCurrentTimeInSomePeriod/index.js'
 import formattedTimeToSeconds from '../utils/formattedTimeToSeconds/index.js'
 import db from '../schedule/db.js'
 
