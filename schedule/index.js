@@ -83,6 +83,6 @@ export const getNearestPair = (group, currentDay, currentTime) => {
       }
     }
   } else {
-    return getPairInfoByPairId(findNextDayFirstPairId(dayIndex, schedule))
+    return getPairInfoByPairId(schedule.days[0][0])
   }
 }
