@@ -19,7 +19,7 @@ const Home = () => {
       setToken(t)
       authorize()
     }
-  }, [])
+  })
 
   const authorize = () => {
     axios({

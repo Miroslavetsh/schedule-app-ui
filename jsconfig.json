@@ -4,7 +4,7 @@
     "paths": {
       "@context/*": ["context/*"],
       "@utils/*": ["utils/*"],
-      "@schedule/*": ["schedule/*"],
+      "@schedule/*": ["schedule/*"]
     }
   }
 }
