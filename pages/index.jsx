@@ -23,8 +23,11 @@ const Home = () => {
 
   const authorize = () => {
     axios({
-      url: '/authorize',
+      url: '/api/authorize',
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       data: { token },
     }).then(({ data }) => {
       if (typeof data === 'string') {
