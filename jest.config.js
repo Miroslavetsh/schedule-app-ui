@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|js?)$',
   transform: {
     '^.+\\.jsx?$': 'babel-jest',
