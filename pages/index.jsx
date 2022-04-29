@@ -23,9 +23,9 @@ const Home = () => {
 
   const authorize = () => {
     axios({
-      url: '/authorize',
-      method: 'POST',
-      data: { token },
+      url: '/api/authorize',
+      method: 'GET',
+      params: { token },
     }).then(({ data }) => {
       if (typeof data === 'string') {
         setErrorMessage(data)

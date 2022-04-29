@@ -1,7 +1,5 @@
-import express from 'express'
-import next from 'next'
-
-import main from './main.js'
+const express = require('express')
+const next = require('next')
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -11,22 +9,7 @@ const handle = app.getRequestHandler()
 app.prepare().then(() => {
   const server = express()
 
-  server.use(express.json())
-
-  server.post('/authorize', (req, res) => {
-    const { token } = req.body
-    let view
-
-    try {
-      view = main(token)
-    } catch (e) {
-      res.send(e.message)
-    }
-
-    res.send(view)
-  })
-
-  server.get('*', (req, res) => {
+  server.all('*', (req, res) => {
     return handle(req, res)
   })
 
