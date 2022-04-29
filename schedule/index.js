@@ -1,6 +1,6 @@
-import checkIfCurrentTimeInSomePeriod from '../utils/checkIfCurrentTimeInSomePeriod/index.mjs'
-import formattedTimeToSeconds from '../utils/formattedTimeToSeconds/index.mjs'
-import db from '../schedule/db.mjs'
+import checkIfCurrentTimeInSomePeriod from '../utils/checkIfCurrentTimeInSomePeriod/index.js'
+import formattedTimeToSeconds from '../utils/formattedTimeToSeconds/index.js'
+import db from '../schedule/db.js'
 
 export class ScheduleError extends Error {
   constructor(...params) {
@@ -83,6 +83,6 @@ export const getNearestPair = (group, currentDay, currentTime) => {
       }
     }
   } else {
-    return getPairInfoByPairId(findNextDayFirstPairId(dayIndex, schedule))
+    return getPairInfoByPairId(schedule.days[0][0])
   }
 }

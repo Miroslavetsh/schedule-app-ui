@@ -1,8 +1,7 @@
-import db from './schedule/db.mjs'
-import { ScheduleError, getCurrentPair, getNearestPair } from './schedule/index.mjs'
-import padTimeWithZeros from './utils/padTimeWithZeros/index.mjs'
+import db from './schedule/db.js'
+import { ScheduleError, getCurrentPair, getNearestPair } from './schedule/index.js'
 
-const main = (_TOKEN_ = 'djsaFnGDLk727uiogu3i710gDDA9GhdLIk') => {
+const main = (_TOKEN_) => {
   const currentDay = new Date().getDay() - 1
   const currentTime = `${new Date().getHours()}:${new Date().getMinutes()}`
 
@@ -10,8 +9,7 @@ const main = (_TOKEN_ = 'djsaFnGDLk727uiogu3i710gDDA9GhdLIk') => {
   if (typeof group === 'undefined') throw new ScheduleError('За заданим токеном групи не знайдено')
 
   const view = {
-    currentDay: db.days[currentDay].name,
-    currentTime: padTimeWithZeros(currentTime),
+    groupName: group.name,
   }
 
   try {
@@ -25,7 +23,5 @@ const main = (_TOKEN_ = 'djsaFnGDLk727uiogu3i710gDDA9GhdLIk') => {
 
   return view
 }
-
-console.log(main())
 
 export default main

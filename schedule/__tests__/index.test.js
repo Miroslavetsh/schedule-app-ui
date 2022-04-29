@@ -1,5 +1,5 @@
-import db from '../db.mjs'
-import { getCurrentPair, getNearestPair, ScheduleError } from '../index.mjs'
+import db from '../db.js'
+import { getCurrentPair, getNearestPair, ScheduleError } from '../index.js'
 
 const testGroup = db.groups[0]
 
@@ -133,6 +133,33 @@ describe('getNearestPair works', () => {
       name: 'Четверг - 3 пара',
       place: '113',
       teacherName: 'Герасименко Оксана Юріївна',
+    })
+  })
+
+  it('Returns the first pair of first day if it is no pairs today', () => {
+    const currentDay1 = 4
+    const currentDay2 = 5
+    const currentDay3 = 6
+    const currentTime1 = '6:10'
+    const currentTime2 = '11:10'
+    const currentTime3 = '11:10'
+
+    expect(getNearestPair(testGroup, currentDay1, currentTime1)).toEqual({
+      name: 'Понедельник - 1 пара',
+      place: '114',
+      teacherName: 'Миколайчук Роман Антонович',
+    })
+
+    expect(getNearestPair(testGroup, currentDay2, currentTime2)).toEqual({
+      name: 'Понедельник - 1 пара',
+      place: '114',
+      teacherName: 'Миколайчук Роман Антонович',
+    })
+
+    expect(getNearestPair(testGroup, currentDay3, currentTime3)).toEqual({
+      name: 'Понедельник - 1 пара',
+      place: '114',
+      teacherName: 'Миколайчук Роман Антонович',
     })
   })
 })
