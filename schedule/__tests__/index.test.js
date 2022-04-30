@@ -97,8 +97,8 @@ describe('getNearestPair works', () => {
     const currentTime = '12:10'
 
     expect(getNearestPair(testGroup, currentDay, currentTime)).toEqual({
-      name: 'Вторник - 1 пара',
-      place: '211',
+      name: 'Среда - 1 пара',
+      place: '113',
       teacherName: 'Герасименко Оксана Юріївна',
     })
   })
