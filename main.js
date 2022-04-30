@@ -19,7 +19,12 @@ const main = (_TOKEN_) => {
     else console.warn(err)
   }
 
-  view.nearestPair = { ...getNearestPair(group, currentDay, currentTime) }
+  try {
+    view.nearestPair = { ...getNearestPair(group, currentDay, currentTime) }
+  } catch (err) {
+    if (err.name === 'ScheduleError') view.nearestPair = err.message
+    else console.warn(err)
+  }
 
   return view
 }

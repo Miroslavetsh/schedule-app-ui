@@ -42,6 +42,19 @@ const findNextDayFirstPairId = (dayIndex, schedule) => {
   return schedule.days[dayIndex][0]
 }
 
+const findNextDayOutOfStudyingWeekFirstPairId = (dayIndex, schedule) => {
+  dayIndex = (dayIndex + 1) % db.days.length
+
+  while (
+    typeof schedule.days[dayIndex] === 'undefined' ||
+    typeof schedule.days[dayIndex][0] === 'undefined'
+  ) {
+    dayIndex = (dayIndex + 1) % db.days.length
+  }
+
+  return schedule.days[dayIndex][0]
+}
+
 export const getNearestPair = (group, currentDay, currentTime) => {
   const schedule = db.schedules.find((schedule) => schedule.groupId === group.id)
   const currentTimeInSeconds = formattedTimeToSeconds(currentTime)
@@ -83,6 +96,6 @@ export const getNearestPair = (group, currentDay, currentTime) => {
       }
     }
   } else {
-    return getPairInfoByPairId(schedule.days[0][0])
+    return getPairInfoByPairId(findNextDayOutOfStudyingWeekFirstPairId(dayIndex, schedule))
   }
 }
