@@ -45,7 +45,10 @@ const findNextDayFirstPairId = (dayIndex, schedule) => {
 const findNextDayOutOfStudyingWeekFirstPairId = (dayIndex, schedule) => {
   dayIndex = (dayIndex + 1) % db.days.length
 
-  while (typeof schedule.days[dayIndex] === 'undefined') {
+  while (
+    typeof schedule.days[dayIndex] === 'undefined' ||
+    typeof schedule.days[dayIndex][0] === 'undefined'
+  ) {
     dayIndex = (dayIndex + 1) % db.days.length
   }
 
