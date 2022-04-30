@@ -92,7 +92,7 @@ describe('getNearestPair works', () => {
     })
   })
 
-  it('Returns first pair of next day if it is an end of this day', () => {
+  it('Returns first pair of next day if it is an end of this day or it\'s a gap in the schedule', () => {
     const currentDay = 0
     const currentTime = '12:10'
 

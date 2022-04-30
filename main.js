@@ -15,7 +15,7 @@ const main = (_TOKEN_) => {
   try {
     view.currentPair = { ...getCurrentPair(group, currentDay, currentTime) }
   } catch (err) {
-    if (err.name === 'ScheduleError') view.currentPair = err.message
+    if (err.name === 'ScheduleError') view.currentPair = err.message + '🎉'
     else console.warn(err)
   }
 
