@@ -9,11 +9,12 @@ const Home = () => {
   const { setPairs } = useContext(AppContext)
 
   const [token, setToken] = useState('')
+  const [isRemember, setIsRemember] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
     // Trying to find the token in this session
-    const t = sessionStorage.getItem('__token')
+    const t = window.localStorage.getItem('__token')
 
     if (t) {
       setToken(t)
@@ -35,7 +36,7 @@ const Home = () => {
         setPairs({ current: currentPair, nearest: nearestPair, groupName })
 
         router.push('/group/' + token)
-        sessionStorage.setItem('__token', token)
+        isRemember && window.localStorage.setItem('__token', token)
       }
     })
   }
@@ -46,6 +47,10 @@ const Home = () => {
       Введи сюди токен, пліз!
       <input value={token} onInput={(e) => setToken(e.target.value.trim())} type="text" />
       {errorMessage && errorMessage}
+      <label>
+        <input type="checkbox" checked={isRemember} onChange={() => setIsRemember(!isRemember)} />
+        Remember
+      </label><br />
       <button onClick={authorize}>Submit</button>
     </>
   )

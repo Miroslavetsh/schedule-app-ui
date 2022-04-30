@@ -22,7 +22,7 @@ const Group = () => {
 
       <button
         onClick={() => {
-          sessionStorage.removeItem('__token')
+          window.localStorage.removeItem('__token')
           router.push('/')
         }}
       >
