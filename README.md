@@ -6,7 +6,7 @@ This is a service of two sides of an big application that will help You to make 
 
 - Firstly, install NodeJS v16.13.1 or above (I'm not sure that everything will work on older version)
 - (optional) Secondly, use it manually by running `nvm use` in Your terminal, or npm will determine dependency of Node version after running `npm install`
-- Then You you will have at your disposal next commands:
+- Then You you will have at your disposal next commands(you can also use yarn instead):
   - `npm run dev` - run the script, that shows You current pair and nearest next pair
   - `npm run dev:server` - runs the server, that allows you to interact with schedule and client
   - `npm run build` - builds client side for using it on a prod
