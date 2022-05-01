@@ -15,11 +15,11 @@ const smiles = [
     text: 'Слідкуйте за розкладом пар. Тепер це зручно!',
   },
   {
-    iconSrc: '/img/icons/smiling-face-with-sunglasses.svg',
+    iconSrc: '/img/icons/nerd-face.svg',
     text: 'Створюйте та оновлюйте розклад.',
   },
   {
-    iconSrc: '/img/icons/nerd-face.svg',
+    iconSrc: '/img/icons/smiling-face-with-sunglasses.svg',
     text: 'Зручно навчайте та навчайтесь самі.',
   },
 ]

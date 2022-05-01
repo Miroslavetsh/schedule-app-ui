@@ -7,6 +7,8 @@ import { useContext, useEffect } from 'react'
 import AppContext from '@context/AppContext'
 import Pair from '@components/Pair'
 
+import styles from '../../styles/Group.module.scss'
+
 const Group = () => {
   const router = useRouter()
   const { pairs } = useContext(AppContext)
@@ -21,28 +23,33 @@ const Group = () => {
         <title>{pairs.groupName}</title>
       </Head>
 
-      <div>
+      <div className={styles.container}>
         {pairs.groupName && (
-          <div>
-            <h1>{pairs.groupName}</h1>
-
+          <div className={styles.whiteBlock}>
             <div>
-              <Pair data={pairs.current} title={'Поточна пара'} />
-              <Pair data={pairs.nearest} title={'Найближча пара'} />
+              <h1 className={styles.heading}>{pairs.groupName}</h1>
+
+              <div className={styles.pairs}>
+                <Pair data={pairs.current} title={'Поточна пара'} />
+                <Pair data={pairs.nearest} title={'Найближча пара'} />
+              </div>
             </div>
+
+            <Link href="/">
+              <a
+                className={styles.link}
+                onClick={() => {
+                  window.localStorage.removeItem('__token')
+                }}
+              >
+                <span className={styles.arrow}>
+                  <Image src="/img/icons/arrow-right.svg" width={20} height={10} alt="arrow" />
+                </span>
+                <span className={styles.text}>Спробувати інший токен</span>
+              </a>
+            </Link>
           </div>
         )}
-
-        <Link href="/">
-          <a
-            onClick={() => {
-              window.localStorage.removeItem('__token')
-            }}
-          >
-            <Image src="/img/icons/arrow-right.svg" width={20} height={10} alt="arrow" />
-            <span>Спробувати інший токен</span>
-          </a>
-        </Link>
       </div>
     </>
   )
