@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useState } from 'react'
 
 import AppContext from '@context/AppContext'
+import PageLayout from 'layout/page'
 
 import '../styles/global.scss'
 
@@ -17,7 +18,9 @@ const MyApp = ({ Component, pageProps }) => {
         />
         <link rel="shortcut icon" href="/favicon.png" />
       </Head>
-      <Component {...pageProps} />
+      <PageLayout>
+        <Component {...pageProps} />
+      </PageLayout>
     </AppContext.Provider>
   )
 }
