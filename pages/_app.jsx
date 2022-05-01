@@ -9,6 +9,10 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <AppContext.Provider value={{ pairs, setPairs }}>
       <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+        />
         <link rel="shortcut icon" href="/favicon.png" />
       </Head>
       <Component {...pageProps} />

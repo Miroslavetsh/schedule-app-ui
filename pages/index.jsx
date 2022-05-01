@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
@@ -49,15 +50,78 @@ const Home = () => {
       <Head>
         <title>Скедюьлер | Твій Помічник</title>
       </Head>
-      Введи сюди токен, пліз!
-      <input value={token} onInput={(e) => setToken(e.target.value.trim())} type="text" />
-      {errorMessage && errorMessage}
-      <label>
-        <input type="checkbox" checked={isRemember} onChange={() => setIsRemember(!isRemember)} />
-        Remember
-      </label>
-      <br />
-      <button onClick={authorize}>Submit</button>
+
+      <div>
+        <h1>Вітаю в Скедьюлері! 👋</h1>
+
+        <div>
+          {errorMessage && <div>{errorMessage}</div>}
+
+          <h2>Будь ласка, введіть наданий вам токен викладача.</h2>
+
+          <div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                authorize()
+              }}
+              action=""
+            >
+              <input
+                value={token}
+                onInput={(e) => setToken(e.target.value.trim())}
+                type="text"
+                placeholder="Токен"
+                id="token-input"
+              />
+
+              <label htmlFor="token-input">
+                *Не надавайте ваш токен нікому, це суперсекретно!​​🤐​
+              </label>
+            </form>
+          </div>
+
+          <label>
+            <input
+              type="checkbox"
+              checked={isRemember}
+              onChange={() => setIsRemember(!isRemember)}
+            />
+            Запам’ятати мене
+          </label>
+
+          <div>
+            {[
+              {
+                iconSrc: '/img/icons/face-with-monocle.svg',
+                text: 'Слідкуйте за розкладом пар. Тепер це зручно!',
+              },
+              {
+                iconSrc: '/img/icons/smiling-face-with-sunglasses.svg',
+                text: 'Створюйте та оновлюйте розклад.',
+              },
+              {
+                iconSrc: '/img/icons/nerd-face.svg',
+                text: 'Зручно навчайте та навчайтесь самі.',
+              },
+            ].map(({ iconSrc, text }) => {
+              return (
+                <div key={text}>
+                  <Image
+                    src={iconSrc}
+                    width={32}
+                    height={32}
+                    quality={100}
+                    alt={iconSrc.match(/[a-z|-]{1,}.(svg|png|jpg)/gi)[0]}
+                  />
+
+                  <p>{text}</p>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </div>
     </>
   )
 }
