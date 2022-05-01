@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from 'uuid'
 
 import AppContext from '@context/AppContext'
 
+import styles from '../styles/Home.module.scss'
+
 const smiles = [
   {
     iconSrc: '/img/icons/face-with-monocle.svg',
@@ -59,6 +61,14 @@ const Home = () => {
     })
   }
 
+  const hideAfterFiveSeconds = () => {
+    setTimeout(() => {
+      setErrorMessage('')
+    }, 5000)
+
+    return true
+  }
+
   // TODO: input validation
   return (
     <>
@@ -66,58 +76,67 @@ const Home = () => {
         <title>Скедюьлер | Твій Помічник</title>
       </Head>
 
-      <div>
-        <h1>Вітаю в Скедьюлері! 👋</h1>
+      <div className={styles.container}>
+        <h1 className={styles.heading}>Вітаю в Скедьюлері! 👋</h1>
 
-        <div>
-          {errorMessage && <div>{errorMessage}</div>}
+        <div className={styles.whiteBlock}>
+          {errorMessage && hideAfterFiveSeconds() && (
+            <div className={styles.error}>{errorMessage}</div>
+          )}
 
-          <h2>Будь ласка, введіть наданий вам токен викладача.</h2>
+          <h2 className={styles.proposition}>Будь ласка, введіть наданий вам токен викладача.</h2>
 
           <div>
             <form
+              className={styles.form}
               onSubmit={(e) => {
                 e.preventDefault()
                 authorize()
               }}
-              action=""
             >
-              <input
-                value={token}
-                onInput={(e) => setToken(e.target.value.trim())}
-                type="text"
-                placeholder="Токен"
-                id="token-input"
-              />
+              <fieldset className={styles.input}>
+                <input
+                  value={token}
+                  onInput={(e) => setToken(e.target.value.trim())}
+                  type="text"
+                  placeholder="Токен"
+                  id="token-input"
+                />
+                <div className={styles.image} onClick={authorize}>
+                  <Image src="/img/icons/arrow-right.svg" width={20} height={10} alt="arrow" />
+                </div>
+              </fieldset>
 
-              <label htmlFor="token-input">
+              <label htmlFor="token-input" className={styles.label}>
                 *Не надавайте ваш токен нікому, це суперсекретно!​​🤐​
               </label>
             </form>
           </div>
 
-          <label>
+          <label className={styles.checkbox}>
             <input
               type="checkbox"
               checked={isRemember}
               onChange={() => setIsRemember(!isRemember)}
             />
-            Запам’ятати мене
+            <span>Запам’ятати мене</span>
           </label>
 
-          <div>
+          <div className={styles.smiles}>
             {smiles.map(({ iconSrc, text }) => {
               return (
-                <div key={text}>
-                  <Image
-                    src={iconSrc}
-                    width={32}
-                    height={32}
-                    quality={100}
-                    alt={iconSrc.match(/[a-z|-]{1,}.(svg|png|jpg)/gi)[0]}
-                  />
+                <div className={styles.smile} key={text}>
+                  <div className={styles.icon}>
+                    <Image
+                      src={iconSrc}
+                      width={32}
+                      height={32}
+                      quality={100}
+                      alt={iconSrc.match(/[a-z|-]{1,}.(svg|png|jpg)/gi)[0]}
+                    />
+                  </div>
 
-                  <p>{text}</p>
+                  <p className={styles.caption}>{text}</p>
                 </div>
               )
             })}
