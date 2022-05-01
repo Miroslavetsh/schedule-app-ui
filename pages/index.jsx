@@ -43,7 +43,7 @@ const Home = () => {
     })
   }
 
-  // TODO: input validation and 'remember me' checkbox
+  // TODO: input validation
   return (
     <>
       <Head>
