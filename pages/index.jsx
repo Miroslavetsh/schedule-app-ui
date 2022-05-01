@@ -7,6 +7,21 @@ import { v4 as uuidv4 } from 'uuid'
 
 import AppContext from '@context/AppContext'
 
+const smiles = [
+  {
+    iconSrc: '/img/icons/face-with-monocle.svg',
+    text: 'Слідкуйте за розкладом пар. Тепер це зручно!',
+  },
+  {
+    iconSrc: '/img/icons/smiling-face-with-sunglasses.svg',
+    text: 'Створюйте та оновлюйте розклад.',
+  },
+  {
+    iconSrc: '/img/icons/nerd-face.svg',
+    text: 'Зручно навчайте та навчайтесь самі.',
+  },
+]
+
 const Home = () => {
   const router = useRouter()
   const { setPairs } = useContext(AppContext)
@@ -91,20 +106,7 @@ const Home = () => {
           </label>
 
           <div>
-            {[
-              {
-                iconSrc: '/img/icons/face-with-monocle.svg',
-                text: 'Слідкуйте за розкладом пар. Тепер це зручно!',
-              },
-              {
-                iconSrc: '/img/icons/smiling-face-with-sunglasses.svg',
-                text: 'Створюйте та оновлюйте розклад.',
-              },
-              {
-                iconSrc: '/img/icons/nerd-face.svg',
-                text: 'Зручно навчайте та навчайтесь самі.',
-              },
-            ].map(({ iconSrc, text }) => {
+            {smiles.map(({ iconSrc, text }) => {
               return (
                 <div key={text}>
                   <Image
