@@ -1,8 +1,13 @@
 import { useRouter } from 'next/router'
+import Head from 'next/head'
+import Link from 'next/link'
+import Image from 'next/image'
 import { useContext, useEffect } from 'react'
 
 import AppContext from '@context/AppContext'
-import Pair from 'components/Pair'
+import Pair from '@components/Pair'
+
+import styles from '../../styles/Group.module.scss'
 
 const Group = () => {
   const router = useRouter()
@@ -14,22 +19,38 @@ const Group = () => {
 
   return (
     <>
-      {pairs.groupName && (
-        <div>
-          Даю інфо за групою {pairs.groupName}
-          <Pair data={pairs.current} title={"Поточна пара"} />
-          <Pair data={pairs.nearest} title={"Найближча пара"} />
-        </div>
-      )}
+      <Head>
+        <title>{pairs.groupName}</title>
+      </Head>
 
-      <button
-        onClick={() => {
-          window.localStorage.removeItem('__token')
-          router.push('/')
-        }}
-      >
-        Ввести інший токен
-      </button>
+      <div className={styles.container}>
+        {pairs.groupName && (
+          <div className={styles.whiteBlock}>
+            <div>
+              <h1 className={styles.heading}>{pairs.groupName}</h1>
+
+              <div className={styles.pairs}>
+                <Pair data={pairs.current} title={'Поточна пара'} />
+                <Pair data={pairs.nearest} title={'Найближча пара'} />
+              </div>
+            </div>
+
+            <Link href="/">
+              <a
+                className={styles.link}
+                onClick={() => {
+                  window.localStorage.removeItem('__token')
+                }}
+              >
+                <span className={styles.arrow}>
+                  <Image src="/img/icons/arrow-right.svg" width={20} height={10} alt="arrow" />
+                </span>
+                <span className={styles.text}>Спробувати інший токен</span>
+              </a>
+            </Link>
+          </div>
+        )}
+      </div>
     </>
   )
 }

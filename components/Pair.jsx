@@ -1,24 +1,43 @@
-import isLink from "@utils/isLink"
+import Link from 'next/link'
 
-function Pair({ data, title }) {
+import isLink from '@utils/isLink'
 
-	if (typeof data === "string") {
-		return <h1>Зараз пара не йде</h1>
-	}
+import styles from '../styles/Group.module.scss'
 
-	const { name, place, teacherName } = data
+const Pair = ({ data, title }) => {
+  const { name, place, teacherName } = data
 
-	return (
-		<div className="pair">
-			<h1>{title}</h1>
-			<p><strong>{name}</strong>, веде {teacherName}</p>
-			{isLink(place)
-				? <a href={`${place}`} target="_blank">Підключитися</a>
-				: <p>Місце проведення аудиторія <strong>{place}</strong></p>
-			}
-		</div>
-	)
+  return (
+    <div className={styles.pair}>
+      <h3 className={styles.heading}>{title}</h3>
 
+      {typeof data === 'string' ? (
+        <h2 className={styles.h2}>{data}</h2>
+      ) : (
+        <>
+          <strong className={styles.h2}>{name}</strong>
+
+          <p className={styles.teacher}>
+            <span>Викладач:</span> <strong>{teacherName}</strong>
+          </p>
+
+          {isLink(place) ? (
+            <p className={styles.place}>
+              <Link href={place}>
+                <a target="_blank">
+                  <span>Підключитись за посиланням</span>
+                </a>
+              </Link>
+            </p>
+          ) : (
+            <p className={styles.place}>
+              Аудиторія №<strong>{place}</strong>
+            </p>
+          )}
+        </>
+      )}
+    </div>
+  )
 }
 
 export default Pair

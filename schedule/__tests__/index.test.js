@@ -43,9 +43,7 @@ describe('getCurrentPair works', () => {
 
     expect(() => {
       getCurrentPair(testGroup, currentDay, currentTime)
-    }).toThrowError(
-      new ScheduleError('На цей день не заплановано жодної пари для ' + testGroup.name)
-    )
+    }).toThrowError(new ScheduleError('На цей день не заплановано жодної пари'))
   })
 
   it('Throws a ScheduleError when NONE of pairs for current time', () => {
@@ -92,7 +90,7 @@ describe('getNearestPair works', () => {
     })
   })
 
-  it('Returns first pair of next day if it is an end of this day or it\'s a gap in the schedule', () => {
+  it("Returns first pair of next day if it is an end of this day or it's a gap in the schedule", () => {
     const currentDay = 0
     const currentTime = '12:10'
 
