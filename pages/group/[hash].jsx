@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
 
 import AppContext from '@context/AppContext'
+import Pair from 'components/Pair'
 
 const Group = () => {
   const router = useRouter()
@@ -16,7 +17,8 @@ const Group = () => {
       {pairs.groupName && (
         <div>
           Даю інфо за групою {pairs.groupName}
-          <pre>{JSON.stringify(pairs, null, 2)}</pre>
+          <Pair data={pairs.current} title={"Поточна пара"} />
+          <Pair data={pairs.nearest} title={"Найближча пара"} />
         </div>
       )}
 
