@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
+import Head from 'next/head'
 
 import AppContext from '@context/AppContext'
 import Pair from 'components/Pair'
@@ -14,6 +15,11 @@ const Group = () => {
 
   return (
     <>
+
+    <Head>
+      <title>{pairs.groupName}</title>
+    </Head>
+
       {pairs.groupName && (
         <div>
           Даю інфо за групою {pairs.groupName}

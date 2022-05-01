@@ -1,7 +1,8 @@
-import axios from 'axios'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid'
 
 import AppContext from '@context/AppContext'
 
@@ -45,13 +46,17 @@ const Home = () => {
   // TODO: input validation and 'remember me' checkbox
   return (
     <>
+      <Head>
+        <title>Скедюьлер | Твій Помічник</title>
+      </Head>
       Введи сюди токен, пліз!
       <input value={token} onInput={(e) => setToken(e.target.value.trim())} type="text" />
       {errorMessage && errorMessage}
       <label>
         <input type="checkbox" checked={isRemember} onChange={() => setIsRemember(!isRemember)} />
         Remember
-      </label><br />
+      </label>
+      <br />
       <button onClick={authorize}>Submit</button>
     </>
   )
