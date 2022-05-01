@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react'
 import Head from 'next/head'
 
 import AppContext from '@context/AppContext'
-import Pair from 'components/Pair'
+import Pair from '@components/Pair'
 
 const Group = () => {
   const router = useRouter()
