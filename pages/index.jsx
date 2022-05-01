@@ -36,7 +36,7 @@ const Home = () => {
 
         setPairs({ current: currentPair, nearest: nearestPair, groupName })
 
-        router.push('/group/' + uuidv4('asd') + Date.now())
+        router.push('/group/' + uuidv4(token) + Date.now())
         isRemember && window.localStorage.setItem('__token', token)
       }
     })
