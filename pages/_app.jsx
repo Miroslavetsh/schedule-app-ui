@@ -3,6 +3,8 @@ import { useState } from 'react'
 
 import AppContext from '@context/AppContext'
 
+import '../styles/global.scss'
+
 const MyApp = ({ Component, pageProps }) => {
   const [pairs, setPairs] = useState({})
 
