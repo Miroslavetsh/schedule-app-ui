@@ -1,24 +1,37 @@
-import isLink from "@utils/isLink"
+import Link from 'next/link'
+
+import isLink from '@utils/isLink'
 
 function Pair({ data, title }) {
+  const { name, place, teacherName } = data
 
-	if (typeof data === "string") {
-		return <h1>Зараз пара не йде</h1>
-	}
+  return (
+    <div>
+      <h3>{title}</h3>
 
-	const { name, place, teacherName } = data
+      {typeof data === 'string' ? (
+        <h2>{data}</h2>
+      ) : (
+        <>
+          <strong>{name}</strong>
 
-	return (
-		<div className="pair">
-			<h1>{title}</h1>
-			<p><strong>{name}</strong>, веде {teacherName}</p>
-			{isLink(place)
-				? <a href={`${place}`} target="_blank">Підключитися</a>
-				: <p>Місце проведення аудиторія <strong>{place}</strong></p>
-			}
-		</div>
-	)
+          <p>
+            Викладач: <strong>{teacherName}</strong>
+          </p>
 
+          {isLink(place) ? (
+            <Link href={place}>
+              <a target="_blank">Підключитися</a>
+            </Link>
+          ) : (
+            <p>
+              Аудиторія <strong>{place}</strong>
+            </p>
+          )}
+        </>
+      )}
+    </div>
+  )
 }
 
 export default Pair

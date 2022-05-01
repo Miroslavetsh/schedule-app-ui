@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router'
-import { useContext, useEffect } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
+import Image from 'next/image'
+import { useContext, useEffect } from 'react'
 
 import AppContext from '@context/AppContext'
 import Pair from '@components/Pair'
@@ -15,27 +17,33 @@ const Group = () => {
 
   return (
     <>
+      <Head>
+        <title>{pairs.groupName}</title>
+      </Head>
 
-    <Head>
-      <title>{pairs.groupName}</title>
-    </Head>
+      <div>
+        {pairs.groupName && (
+          <div>
+            <h1>{pairs.groupName}</h1>
 
-      {pairs.groupName && (
-        <div>
-          Даю інфо за групою {pairs.groupName}
-          <Pair data={pairs.current} title={"Поточна пара"} />
-          <Pair data={pairs.nearest} title={"Найближча пара"} />
-        </div>
-      )}
+            <div>
+              <Pair data={pairs.current} title={'Поточна пара'} />
+              <Pair data={pairs.nearest} title={'Найближча пара'} />
+            </div>
+          </div>
+        )}
 
-      <button
-        onClick={() => {
-          window.localStorage.removeItem('__token')
-          router.push('/')
-        }}
-      >
-        Ввести інший токен
-      </button>
+        <Link href="/">
+          <a
+            onClick={() => {
+              window.localStorage.removeItem('__token')
+            }}
+          >
+            <Image src="/img/icons/arrow-right.svg" width={20} height={10} alt="arrow" />
+            <span>Спробувати інший токен</span>
+          </a>
+        </Link>
+      </div>
     </>
   )
 }
