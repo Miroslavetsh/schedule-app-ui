@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 
 import AppContext from '@context/AppContext'
 
@@ -35,7 +36,7 @@ const Home = () => {
 
         setPairs({ current: currentPair, nearest: nearestPair, groupName })
 
-        router.push('/group/' + token)
+        router.push('/group/' + uuidv4('asd') + Date.now())
         isRemember && window.localStorage.setItem('__token', token)
       }
     })
