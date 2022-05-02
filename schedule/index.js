@@ -2,28 +2,6 @@ import checkIfCurrentTimeInSomePeriod from '../utils/checkIfCurrentTimeInSomePer
 import formattedTimeToSeconds from '../utils/formattedTimeToSeconds/index.js'
 import db from '../schedule/db.js'
 
-export class ScheduleError extends Error {
-  constructor(...params) {
-    super(...params)
-    this.name = 'ScheduleError'
-  }
-}
-
-export const getCurrentPair = (group, currentDay, currentTime) => {
-  const schedule = db.schedules.find((schedule) => schedule.groupId === group.id)
-  const pairIdsToday = schedule.days[currentDay]
-
-  if (typeof pairIdsToday === 'undefined')
-    throw new ScheduleError('На цей день не заплановано жодної пари')
-
-  const pairsToday = pairIdsToday.map((pairId) => db.pairs.find(({ id }) => pairId === id))
-  const pairNow = pairsToday.find((pair) => checkIfCurrentTimeInSomePeriod(currentTime, pair.time))
-
-  if (typeof pairNow === 'undefined') throw new ScheduleError('Зараз пара не йде')
-
-  return getPairInfoByPairId(pairNow.id)
-}
-
 const getPairInfoByPairId = (pairId) => {
   const { subjectId } = db.pairs.find(({ id }) => id === pairId)
   const { name, place, teacherId } = db.subjects.find(({ id }) => id === subjectId)
@@ -53,6 +31,28 @@ const findNextDayOutOfStudyingWeekFirstPairId = (dayIndex, schedule) => {
   }
 
   return schedule.days[dayIndex][0]
+}
+
+export class ScheduleError extends Error {
+  constructor(...params) {
+    super(...params)
+    this.name = 'ScheduleError'
+  }
+}
+
+export const getCurrentPair = (group, currentDay, currentTime) => {
+  const schedule = db.schedules.find((schedule) => schedule.groupId === group.id)
+  const pairIdsToday = schedule.days[currentDay]
+
+  if (typeof pairIdsToday === 'undefined')
+    throw new ScheduleError('На цей день не заплановано жодної пари')
+
+  const pairsToday = pairIdsToday.map((pairId) => db.pairs.find(({ id }) => pairId === id))
+  const pairNow = pairsToday.find((pair) => checkIfCurrentTimeInSomePeriod(currentTime, pair.time))
+
+  if (typeof pairNow === 'undefined') throw new ScheduleError('Зараз пара не йде')
+
+  return getPairInfoByPairId(pairNow.id)
 }
 
 export const getNearestPair = (group, currentDay, currentTime) => {
