@@ -31,6 +31,7 @@ const Home = () => {
 
   const [token, setToken] = useState('')
   const [isRemember, setIsRemember] = useState(false)
+  const [isAuthorizing, setIsAuthorizing] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
@@ -43,6 +44,8 @@ const Home = () => {
   })
 
   const authorize = () => {
+    setIsAuthorizing(true)
+
     axios({
       url: '/api/authorize',
       method: 'GET',
@@ -58,6 +61,8 @@ const Home = () => {
         router.push('/group/' + uuidv4(token) + Date.now())
         isRemember && setCookies('__token', token)
       }
+
+      setIsAuthorizing(false)
     })
   }
 
@@ -75,7 +80,7 @@ const Home = () => {
   ) : (
     <>
       <Head>
-        <title>Скедюьлер | Твій Помічник</title>
+        <title>Скедьюлер | Твій Помічник</title>
       </Head>
 
       <div className={styles.container}>
@@ -103,10 +108,12 @@ const Home = () => {
                   type="text"
                   placeholder="Токен"
                   id="token-input"
+                  disabled={isAuthorizing}
                 />
-                <div className={styles.image} onClick={authorize}>
+
+                <button type="submit" className={styles.image} disabled={isAuthorizing}>
                   <Image src="/img/icons/arrow-right.svg" width={20} height={10} alt="arrow" />
-                </div>
+                </button>
               </fieldset>
 
               <label htmlFor="token-input" className={styles.label}>
