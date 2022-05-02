@@ -134,6 +134,18 @@ describe('getNearestPair works', () => {
     })
   })
 
+  it('Returns the first pair of second day if it is no pairs in first', () => {
+    const testGroup = db.groups[1]
+    const currentDay1 = 0
+    const currentTime1 = '11:10'
+
+    expect(getNearestPair(testGroup, currentDay1, currentTime1)).toEqual({
+      name: 'Вторник - 1 пара',
+      place: '211',
+      teacherName: 'Герасименко Оксана Юріївна',
+    })
+  })
+
   it('Returns the first pair of first day if it is no pairs today', () => {
     const currentDay1 = 4
     const currentDay2 = 5

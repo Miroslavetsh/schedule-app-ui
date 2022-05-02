@@ -62,7 +62,11 @@ export const getNearestPair = (group, currentDay, currentTime) => {
   let dayIndex = currentDay
   const pairIdsToday = schedule.days[dayIndex]
 
-  if (typeof pairIdsToday !== 'undefined') {
+  if (
+    typeof pairIdsToday !== 'undefined' &&
+    Array.isArray(pairIdsToday) &&
+    pairIdsToday.length !== 0
+  ) {
     const pairsToday = pairIdsToday.map((id) => db.pairs.find((pair) => pair.id === id))
 
     const firstPair = pairsToday[0]
@@ -91,7 +95,9 @@ export const getNearestPair = (group, currentDay, currentTime) => {
       // If time is in gap -  return first pair, start time of that more than our time
       else {
         return getPairInfoByPairId(
-          pairsToday.find(({ time }) => currentTimeInSeconds < time.split('-')[0])
+          pairsToday.find(
+            ({ time }) => currentTimeInSeconds < formattedTimeToSeconds(time.split('-')[0])
+          ).id
         )
       }
     }

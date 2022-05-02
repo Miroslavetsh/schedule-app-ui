@@ -8,6 +8,7 @@ import AppContext from '@context/AppContext'
 import Pair from '@components/Pair'
 
 import styles from '../../styles/Group.module.scss'
+import { removeCookies } from 'cookies-next'
 
 const Group = () => {
   const router = useRouter()
@@ -39,7 +40,7 @@ const Group = () => {
               <a
                 className={styles.link}
                 onClick={() => {
-                  window.localStorage.removeItem('__token')
+                  removeCookies('__token')
                 }}
               >
                 <span className={styles.arrow}>
