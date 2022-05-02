@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
+import { getCookies, setCookies, checkCookies } from 'cookies-next'
 
 import AppContext from '@context/AppContext'
 
@@ -33,11 +34,10 @@ const Home = () => {
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
-    // Trying to find the token in this session
-    const t = window.localStorage.getItem('__token')
+    if (checkCookies('__token')) {
+      const { __token } = getCookies()
 
-    if (t) {
-      setToken(t)
+      setToken(__token)
       authorize()
     }
   })
@@ -56,7 +56,7 @@ const Home = () => {
         setPairs({ current: currentPair, nearest: nearestPair, groupName })
 
         router.push('/group/' + uuidv4(token) + Date.now())
-        isRemember && window.localStorage.setItem('__token', token)
+        isRemember && setCookies('__token', token)
       }
     })
   }
