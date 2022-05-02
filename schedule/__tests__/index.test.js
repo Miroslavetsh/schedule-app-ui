@@ -146,6 +146,17 @@ describe('getNearestPair works', () => {
     })
   })
 
+  it('Returns the next pair of this day if it is a gap between pairs now', () => {
+    const currentDay = 0
+    const currentTime = '12:00'
+
+    expect(getNearestPair(testGroup, currentDay, currentTime)).toEqual({
+      name: 'Понедельник - 3 пара',
+      place: 'https://us04web.zoom.us/j/74357958497?pwd=ZF1f25FvTHS3G5BIQDTMb3myYU3PUW.1',
+      teacherName: 'Телешун Ярослав С.',
+    })
+  })
+
   it('Returns the first pair of first day if it is no pairs today', () => {
     const currentDay1 = 4
     const currentDay2 = 5
