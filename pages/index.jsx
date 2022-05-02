@@ -80,7 +80,7 @@ const Home = () => {
   ) : (
     <>
       <Head>
-        <title>Скедюьлер | Твій Помічник</title>
+        <title>Скедьюлер | Твій Помічник</title>
       </Head>
 
       <div className={styles.container}>
