@@ -3,10 +3,15 @@
   max-width: 1138px;
   width: 100%;
   margin: 0 auto;
+  padding: 0 12px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+
+  @media screen and (max-width: 480px) {
+    padding: 0;
+  }
 }
 
 .whiteBlock {
@@ -22,6 +27,30 @@
   border-top-right-radius: 50px;
   border-top-left-radius: 50px;
   background: #fff;
+
+  @media screen and (max-width: 920px) {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding-top: 50px;
+  }
+
+  @media screen and (max-width: 480px) {
+    padding-left: 20px;
+    padding-right: 20px;
+    justify-content: flex-start;
+  }
+
+  @media screen and (max-width: 380px) {
+    padding-top: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+  }
 }
 
 .heading {
@@ -29,25 +58,84 @@
 
   font-size: 32px;
   font-weight: 700;
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 30px;
+  }
+
+  @media screen and (max-width: 380px) {
+    margin-bottom: 20px;
+
+    font-size: 24px;
+  }
 }
 
 .pairs {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 36px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    row-gap: 30px;
+    margin-bottom: 50px;
+  }
+
+  @media screen and (max-width: 480px) {
+    row-gap: 20px;
+  }
+
+  @media screen and (max-width: 380px) {
+    margin-bottom: 36px;
+  }
 }
 
 .pair {
-  width: 46%;
+  width: 47%;
   padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
 
   border-radius: 50px;
   border: 1px solid #bebebe;
+
+  @media screen and (max-width: 920px) {
+    width: 49%;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 480px) {
+    padding: 40px 20px;
+  }
+
+  @media screen and (max-width: 380px) {
+    padding: 20px;
+
+    border-radius: 30px;
+  }
 
   .heading {
     margin-bottom: 36px;
 
     font-size: 18px;
     font-weight: 400;
+
+    @media screen and (max-width: 920px) {
+      font-weight: 400;
+    }
+
+    @media screen and (max-width: 380px) {
+      margin-bottom: 20px;
+
+      font-size: 18px;
+    }
+  }
+
+  .text {
+    flex: 1 1 auto;
   }
 
   .h2 {
@@ -56,6 +144,18 @@
 
     font-size: 22px;
     font-weight: 600;
+
+    @media screen and (max-width: 920px) {
+      font-size: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+      margin-bottom: 25px;
+    }
+
+    @media screen and (max-width: 380px) {
+      margin-bottom: 20px;
+    }
   }
 
   .teacher {
@@ -64,6 +164,14 @@
     margin-bottom: 40px;
 
     font-size: 18px;
+
+    @media screen and (max-width: 920px) {
+      font-size: 16px;
+    }
+
+    @media screen and (max-width: 380px) {
+      margin-bottom: 30px;
+    }
 
     span {
       color: #a4a4a4;
@@ -85,7 +193,12 @@
     border-radius: 30px;
 
     color: #fff;
+    font-size: 16px;
     text-align: center;
+
+    @media screen and (max-width: 920px) {
+      font-size: 14px;
+    }
 
     &:hover {
       a {
@@ -146,6 +259,10 @@
   font-weight: 600;
 
   color: #434343;
+
+  @media screen and (max-width: 380px) {
+    font-size: 16px;
+  }
 
   &:hover {
     .arrow {
