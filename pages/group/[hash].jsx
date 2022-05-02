@@ -31,8 +31,7 @@ const Group = () => {
               <h1 className={styles.heading}>{pairs.groupName}</h1>
 
               <div className={styles.pairs}>
-                {/* <Pair data={pairs.current} title={'Поточна пара'} /> */}
-                <Pair data={{name:'Long long name', place: '2123', teacherName: 'Long long teacher  '}} title={'Поточна пара'} />
+                <Pair data={pairs.current} title={'Поточна пара'} />
                 <Pair data={pairs.nearest} title={'Найближча пара'} />
               </div>
             </div>

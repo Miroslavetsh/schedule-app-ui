@@ -5,18 +5,11 @@
 
 body {
   font-family: Inter;
-  min-height: 100vh;
-
-  background: linear-gradient(254.31deg, #fdf8b5 3.22%, #4ee1cc 100%) center no-repeat;
-  background-size: cover;
-}
-
-#__next {
-  height: 100%;
 }
 
 .page {
-  height: 100%;
+  background: linear-gradient(254.31deg, #fdf8b5 3.22%, #4ee1cc 100%) center no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
 }
