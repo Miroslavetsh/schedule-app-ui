@@ -93,6 +93,11 @@
 
     transition: all 0.3s ease-in-out;
 
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     &::placeholder {
       font-weight: 200;
       color: #afafaf;
@@ -119,6 +124,11 @@
 
     &:hover {
       background: #fff;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
   }
 }
