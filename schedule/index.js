@@ -95,7 +95,9 @@ export const getNearestPair = (group, currentDay, currentTime) => {
       // If time is in gap -  return first pair, start time of that more than our time
       else {
         return getPairInfoByPairId(
-          pairsToday.find(({ time }) => currentTimeInSeconds < time.split('-')[0])
+          pairsToday.find(
+            ({ time }) => currentTimeInSeconds < formattedTimeToSeconds(time.split('-')[0])
+          ).id
         )
       }
     }
