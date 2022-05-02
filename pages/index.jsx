@@ -70,7 +70,9 @@ const Home = () => {
   }
 
   // TODO: input validation
-  return (
+  return checkCookies('__token') ? (
+    <div className={styles.loadingScreen}>Loading...</div>
+  ) : (
     <>
       <Head>
         <title>Скедюьлер | Твій Помічник</title>
