@@ -112,6 +112,11 @@ const db = {
       groupId: 'djsaFnGDLk727uiogu3i710gDDA9GhdLIk',
       days: [[1, 2, 3], [], [7, 8, 9], [10, 11, 12]],
     },
+    {
+      id: 2,
+      groupId: 'DjsafnGDLk727daogu3i710gDUR9RhdSIk',
+      days: [[], [4, 5, 6], [7, 8, 9], [10, 11, 12]],
+    },
   ],
   /**
    * @property {pair}
