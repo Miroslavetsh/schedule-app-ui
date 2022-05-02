@@ -15,11 +15,13 @@ const Pair = ({ data, title }) => {
         <h2 className={styles.h2}>{data}</h2>
       ) : (
         <>
-          <strong className={styles.h2}>{name}</strong>
+          <div className={styles.text}>
+            <strong className={styles.h2}>{name}</strong>
 
-          <p className={styles.teacher}>
-            <span>Викладач:</span> <strong>{teacherName}</strong>
-          </p>
+            <p className={styles.teacher}>
+              <span>Викладач:</span> <strong>{teacherName}</strong>
+            </p>
+          </div>
 
           {isLink(place) ? (
             <p className={styles.place}>
