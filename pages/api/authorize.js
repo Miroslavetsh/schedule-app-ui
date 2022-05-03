@@ -6,7 +6,7 @@ export default (req, res) => {
     let view
 
     try {
-      view = main(token, currentDay, currentTime)
+      view = main(token, +currentDay, currentTime)
     } catch (e) {
       return res.status(200).json(e.message)
     }
