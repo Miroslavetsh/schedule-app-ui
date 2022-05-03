@@ -34,6 +34,9 @@ const Home = () => {
   const [isAuthorizing, setIsAuthorizing] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
+  const cookiesExpire = new Date(Date.now())
+  cookiesExpire.setFullYear(cookiesExpire.getFullYear() + 1)
+
   useEffect(() => {
     if (checkCookies('__token')) {
       const { __token } = getCookies()
@@ -59,7 +62,7 @@ const Home = () => {
         setPairs({ current: currentPair, nearest: nearestPair, groupName })
 
         router.push('/group/' + uuidv4(token) + Date.now())
-        isRemember && setCookies('__token', token)
+        isRemember && setCookies('__token', token, { expires: cookiesExpire })
       }
 
       setIsAuthorizing(false)
