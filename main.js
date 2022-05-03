@@ -1,10 +1,7 @@
 import db from './schedule/db.js'
 import { ScheduleError, getCurrentPair, getNearestPair } from './schedule/index.js'
 
-const main = (_TOKEN_) => {
-  const currentDay = new Date().getDay() - 1
-  const currentTime = `${new Date().getHours()}:${new Date().getMinutes()}`
-
+const main = (_TOKEN_, currentDay, currentTime) => {
   const group = db.groups.find((group) => group.id === _TOKEN_)
   if (typeof group === 'undefined') throw new ScheduleError('За заданим токеном групи не знайдено')
 

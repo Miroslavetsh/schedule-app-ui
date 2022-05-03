@@ -49,10 +49,13 @@ const Home = () => {
   const authorize = () => {
     setIsAuthorizing(true)
 
+    const currentDay = new Date().getDay() - 1
+    const currentTime = `${new Date().getHours()}:${new Date().getMinutes()}`
+
     axios({
       url: '/api/authorize',
       method: 'GET',
-      params: { token },
+      params: { token, currentDay, currentTime },
     }).then(({ data }) => {
       if (typeof data === 'string') {
         setErrorMessage(data)
