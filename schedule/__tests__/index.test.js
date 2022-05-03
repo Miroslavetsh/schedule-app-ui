@@ -1,154 +1,186 @@
-import { getCurrentPair, getNearestPair, ScheduleError } from '../index.mjs'
+import db from '../db.js'
+import { getCurrentPair, getNearestPair, ScheduleError } from '../index.js'
 
-const db = {
-  subjects: [
-    {
-      id: 'test-subject-id',
-      name: 'Test-Subj',
-      place: '114',
-      teacherId: 'test-teacher-id',
-    },
-    {
-      id: 'test-subject-id-for-current-day-before-pairs',
-      name: 'Test-Subj Before First Pair',
-      place: '114',
-      teacherId: 'test-teacher-id',
-    },
-    {
-      id: 'test-subject-id-special',
-      name: 'Test-Subj-Spec',
-      place: '201',
-      teacherId: 'test-teacher-id-spec',
-    },
-  ],
-  teachers: [
-    { id: 'test-teacher-id', name: 'Test Test Test' },
-    { id: 'test-teacher-id-spec', name: 'Test Test Spec' },
-  ],
-  groups: [{ id: 'test-group-id', name: 'Test Group' }],
-  schedules: [
-    {
-      id: 1,
-      groupId: 'test-group-id',
-      days: [
-        [5, 2, 3, 4],
-        [1, 2, 3, 4],
-      ],
-    },
-  ],
-  pairs: [
-    {
-      id: 1,
-      subjectId: 'test-subject-id',
-      time: '09:00 - 10:20',
-    },
-    {
-      id: 2,
-      subjectId: 'test-subject-id',
-      time: '10:30 - 11:09',
-    },
-    {
-      id: 3,
-      subjectId: 'test-subject-id-special',
-      time: '11:10 - 11:50',
-    },
-    {
-      id: 4,
-      subjectId: 'test-subject-id',
-      time: '12:10 - 12:49',
-    },
-    {
-      id: 5,
-      subjectId: 'test-subject-id-for-current-day-before-pairs',
-      time: '09:00 - 10:20',
-    },
-  ],
-  days: [
-    { id: 1, name: 'Понеділок' },
-    { id: 2, name: 'Вівторок' },
-    { id: 3, name: 'Середа' },
-    { id: 4, name: 'Четвер' },
-    { id: 5, name: "П'ятниця" },
-    { id: 6, name: 'Субота' },
-    { id: 7, name: 'Неділя' },
-  ],
-}
+const testGroup = db.groups[0]
 
 describe('getCurrentPair works', () => {
-  it("Returns a pair if it's defined", () => {
+  it("Returns a pair in morning if it's defined", () => {
+    const currentDay = 0
+    const currentTime = '09:00'
+
+    expect(getCurrentPair(testGroup, currentDay, currentTime)).toEqual({
+      name: 'Понедельник - 1 пара',
+      place: '114',
+      teacherName: 'Миколайчук Роман Антонович',
+    })
+  })
+
+  it("Returns a pair in noon if it's defined", () => {
     const currentDay = 0
     const currentTime = '11:39'
 
-    expect(getCurrentPair(db.groups[0], currentDay, currentTime, db)).toEqual({
-      name: 'Test-Subj-Spec',
-      place: '201',
-      teacherName: 'Test Test Spec',
+    expect(getCurrentPair(testGroup, currentDay, currentTime)).toEqual({
+      name: 'Понедельник - 2 пара',
+      place: '114',
+      teacherName: 'Миколайчук Роман Антонович',
+    })
+  })
+
+  it("Returns the last pair if it's defined", () => {
+    const currentDay = 0
+    const currentTime = '12:20'
+
+    expect(getCurrentPair(testGroup, currentDay, currentTime)).toEqual({
+      name: 'Понедельник - 3 пара',
+      place: 'https://us04web.zoom.us/j/74357958497?pwd=ZF1f25FvTHS3G5BIQDTMb3myYU3PUW.1',
+      teacherName: 'Телешун Ярослав С.',
     })
   })
 
   it('Throws a ScheduleError when is NO ONE pair for current day', () => {
-    const currentDay = 4
+    const currentDay = 4 // Friday, cause every day counts from 0 (zero is monday)
     const currentTime = '11:39'
 
     expect(() => {
-      getCurrentPair(db.groups[0], currentDay, currentTime, db)
-    }).toThrowError(
-      new ScheduleError('На цей день не заплановано жодної пари для ' + db.groups[0].name),
-    )
+      getCurrentPair(testGroup, currentDay, currentTime)
+    }).toThrowError(new ScheduleError('На цей день не заплановано жодної пари'))
   })
 
-  it('Throws a ScheduleError when is NO MORE pairs for current day', () => {
+  it('Throws a ScheduleError when NONE of pairs for current time', () => {
     const currentDay = 0
-    const currentTime = '19:39'
 
     expect(() => {
-      getCurrentPair(db.groups[0], currentDay, currentTime, db)
-    }).toThrowError(new ScheduleError('На сьогодні пари скінчилися'))
+      getCurrentPair(testGroup, currentDay, '08:00')
+    }).toThrowError(new ScheduleError('Зараз пара не йде'))
+
+    expect(() => {
+      getCurrentPair(testGroup, currentDay, '15:00')
+    }).toThrowError(new ScheduleError('Зараз пара не йде'))
+  })
+
+  it('Throws a ScheduleError when it is a gap between pairs in current time', () => {
+    const currentDay = 0
+
+    expect(() => {
+      getCurrentPair(testGroup, currentDay, '10:21')
+    }).toThrowError(new ScheduleError('Зараз пара не йде'))
   })
 })
 
 describe('getNearestPair works', () => {
-  it('Returns a next pair of present day if we have pair after current time', () => {
+  it('Returns first pair of current day when time is before pairs', () => {
     const currentDay = 0
-    const currentTime = '10:00'
+    const currentTime = '08:00'
 
-    expect(getNearestPair(db.groups[0], currentDay, currentTime, db)).toEqual({
-      name: 'Test-Subj',
+    expect(getNearestPair(testGroup, currentDay, currentTime)).toEqual({
+      name: 'Понедельник - 1 пара',
       place: '114',
-      teacherName: 'Test Test Test',
+      teacherName: 'Миколайчук Роман Антонович',
     })
   })
 
-  it('Returns a first pair of a next day if we have day after current one', () => {
+  it('Returns second pair of current day if it is time of first pair', () => {
     const currentDay = 0
-    const currentTime = '18:39'
+    const currentTime = '09:00'
 
-    expect(getNearestPair(db.groups[0], currentDay, currentTime, db)).toEqual({
-      name: 'Test-Subj',
+    expect(getNearestPair(testGroup, currentDay, currentTime)).toEqual({
+      name: 'Понедельник - 2 пара',
       place: '114',
-      teacherName: 'Test Test Test',
+      teacherName: 'Миколайчук Роман Антонович',
     })
   })
 
-  it('Returns a first pair of a current day, cause the current time is before pairs', () => {
+  it("Returns first pair of next day if it is an end of this day or it's a gap in the schedule", () => {
     const currentDay = 0
-    const currentTime = '08:39'
+    const currentTime = '12:10'
 
-    expect(getNearestPair(db.groups[0], currentDay, currentTime, db)).toEqual({
-      name: 'Test-Subj Before First Pair',
-      place: '114',
-      teacherName: 'Test Test Test',
+    expect(getNearestPair(testGroup, currentDay, currentTime)).toEqual({
+      name: 'Среда - 1 пара',
+      place: '113',
+      teacherName: 'Герасименко Оксана Юріївна',
     })
   })
 
-  it('Returns a first pair of a next day with at least one pair (no pairs today anymore', () => {
-    const currentDay = 1
-    const currentTime = '18:19'
+  it('Returns first pair of first day if it is an end of the studying week', () => {
+    const currentDay = 3
+    const currentTime = '14:10'
 
-    expect(getNearestPair(db.groups[0], currentDay, currentTime, db)).toEqual({
-      name: 'Test-Subj Before First Pair',
+    expect(getNearestPair(testGroup, currentDay, currentTime)).toEqual({
+      name: 'Понедельник - 1 пара',
       place: '114',
-      teacherName: 'Test Test Test',
+      teacherName: 'Миколайчук Роман Антонович',
+    })
+  })
+
+  it('Returns first pair of first day if it is a last pair of the end of the studying week', () => {
+    const currentDay = 3
+    const currentTime = '12:10'
+
+    expect(getNearestPair(testGroup, currentDay, currentTime)).toEqual({
+      name: 'Понедельник - 1 пара',
+      place: '114',
+      teacherName: 'Миколайчук Роман Антонович',
+    })
+  })
+
+  it('Returns the last pair of a last day if it is time for another pair', () => {
+    const currentDay = 3
+    const currentTime = '11:10'
+
+    expect(getNearestPair(testGroup, currentDay, currentTime)).toEqual({
+      name: 'Четверг - 3 пара',
+      place: '113',
+      teacherName: 'Герасименко Оксана Юріївна',
+    })
+  })
+
+  it('Returns the first pair of second day if it is no pairs in first', () => {
+    const testGroup = db.groups[1]
+    const currentDay1 = 0
+    const currentTime1 = '11:10'
+
+    expect(getNearestPair(testGroup, currentDay1, currentTime1)).toEqual({
+      name: 'Вторник - 1 пара',
+      place: '211',
+      teacherName: 'Герасименко Оксана Юріївна',
+    })
+  })
+
+  it('Returns the next pair of this day if it is a gap between pairs now', () => {
+    const currentDay = 0
+    const currentTime = '12:00'
+
+    expect(getNearestPair(testGroup, currentDay, currentTime)).toEqual({
+      name: 'Понедельник - 3 пара',
+      place: 'https://us04web.zoom.us/j/74357958497?pwd=ZF1f25FvTHS3G5BIQDTMb3myYU3PUW.1',
+      teacherName: 'Телешун Ярослав С.',
+    })
+  })
+
+  it('Returns the first pair of first day if it is no pairs today', () => {
+    const currentDay1 = 4
+    const currentDay2 = 5
+    const currentDay3 = 6
+    const currentTime1 = '6:10'
+    const currentTime2 = '11:10'
+    const currentTime3 = '11:10'
+
+    expect(getNearestPair(testGroup, currentDay1, currentTime1)).toEqual({
+      name: 'Понедельник - 1 пара',
+      place: '114',
+      teacherName: 'Миколайчук Роман Антонович',
+    })
+
+    expect(getNearestPair(testGroup, currentDay2, currentTime2)).toEqual({
+      name: 'Понедельник - 1 пара',
+      place: '114',
+      teacherName: 'Миколайчук Роман Антонович',
+    })
+
+    expect(getNearestPair(testGroup, currentDay3, currentTime3)).toEqual({
+      name: 'Понедельник - 1 пара',
+      place: '114',
+      teacherName: 'Миколайчук Роман Антонович',
     })
   })
 })
