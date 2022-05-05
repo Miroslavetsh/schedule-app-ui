@@ -338,22 +338,22 @@ const prodDB = {
     },
     {
       id: 'ct-4',
-      subjectId: 'hrm-tech',
+      subjectId: 'hmr-tec',
       time: '13:40 - 15:00',
     },
     {
       id: 'pt-1',
-      subjectId: 'obj-prog-pract',
+      subjectId: 'obj-prg-pract',
       time: '10:30 - 11:50',
     },
     {
       id: 'pt-2',
-      subjectId: 'obj-prog-pract',
+      subjectId: 'obj-prg-pract',
       time: '12:00 - 13:30',
     },
     {
       id: 'pt-3',
-      subjectId: 'obj-prog-pract',
+      subjectId: 'obj-prg-pract',
       time: '13:40 - 15:00',
     },
   ],
