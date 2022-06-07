@@ -2,3 +2,4 @@
 .vscode/
 .next/
 /build
+.env

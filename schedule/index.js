@@ -44,8 +44,7 @@ export const getCurrentPair = (group, currentDay, currentTime) => {
   const schedule = db.schedules.find((schedule) => schedule.groupId === group.id)
   const pairIdsToday = schedule.days[currentDay]
 
-  if (typeof pairIdsToday === 'undefined')
-    throw new ScheduleError('На цей день не заплановано жодної пари')
+  if (pairIdsToday.length === 0) throw new ScheduleError('На цей день не заплановано жодної пари')
 
   const pairsToday = pairIdsToday.map((pairId) => db.pairs.find(({ id }) => pairId === id))
   const pairNow = pairsToday.find((pair) => checkIfCurrentTimeInSomePeriod(currentTime, pair.time))
