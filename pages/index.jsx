@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 import { getCookies, setCookies, checkCookies } from 'cookies-next'
+import Typewriter from 'typewriter-effect'
 
 import AppContext from '@context/AppContext'
 
@@ -80,6 +81,10 @@ const Home = () => {
     return true
   }
 
+  const hideTypewriterCursor = () => {
+    document && (document.querySelector('.Typewriter__cursor').style.visibility = 'hidden')
+  }
+
   // TODO: input validation
   return checkCookies('__token') ? (
     <div className={styles.loadingScreen}>Loading...</div>
@@ -90,7 +95,24 @@ const Home = () => {
       </Head>
 
       <div className={styles.container}>
-        <h1 className={styles.heading}>Вітаю в Скедьюлері! 👋</h1>
+        <h1 className={styles.heading}>
+          <Typewriter
+            onInit={(typewriter) => {
+              typewriter
+                .typeString('Хей-хей, тт')
+                .pauseFor(400)
+                .deleteChars(2)
+                .typeString('ти на пари?')
+                .pauseFor(1400)
+                .deleteAll()
+                .typeString('Вітаю в Скедьюлері!')
+                .callFunction(hideTypewriterCursor)
+                .pauseFor(200)
+                .pasteString('👋')
+                .start()
+            }}
+          />
+        </h1>
 
         <div className={styles.whiteBlock}>
           {errorMessage && hideAfterFiveSeconds() && (
